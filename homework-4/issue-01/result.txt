@@ -1,0 +1,32 @@
+Trying:
+    encode('SOS')
+Expecting:
+    '... --- ...'
+ok
+Trying:
+    encode('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
+Expecting:
+    '.- -... -.-. -.. . ..-. --. .... .. .--- -.- .-.. -- -. 
+    --- .--. --.- .-. ... - ..- ...- .-- -..- -.-- --..'
+ok
+Trying:
+    encode('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ')
+Expecting:
+    '----- .---- ..--- ...-- ....- ..... -.... --... ---.. 
+    ----. .- -... -.-. -.. . ..-. --. .... .. .--- -.- .-.. 
+    -- -. --- .--. --.- .-. ... - ..- ...- .-- -..- -.-- --..'
+ok
+Trying:
+    encode('\u0439') # doctest: +IGNORE_EXCEPTION_DETAIL
+Expecting:
+    Traceback (most recent call last):
+        ...
+    KeyError: '\u0439'
+ok
+1 items had no tests:
+    morse
+1 items passed all tests:
+   4 tests in morse.encode
+4 tests in 2 items.
+4 passed and 0 failed.
+Test passed.
