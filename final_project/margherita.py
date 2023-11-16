@@ -14,4 +14,6 @@ class Margherita(Pizza):
         """
         super().__init__(name="Margherita",
                          pizza_size=pizza_size,
-                         ingredients=["tomato sauce", "mozzarella", "tomatoes"])
+                         ingredients=["tomato sauce",
+                                      "mozzarella",
+                                      "tomatoes"])

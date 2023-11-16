@@ -1,5 +1,6 @@
 import click
 import pizza_services
+from utils import dict_to_str
 
 
 @click.group()
@@ -17,9 +18,8 @@ def order(pizza_name: str, pizza_size: str, delivery: bool):
     """
     Order a pizza
     """
-    pizza = pizza_services.create_pizza(name=pizza_name,
-                                        size=pizza_size)
-    click.echo(f"You ordered a {pizza.dict()}")
+    pizza = pizza_services.create_pizza(name=pizza_name, size=pizza_size)
+    click.echo(f"You ordered a {dict_to_str(pizza.dict())}")
     if delivery:
         pizza_services.delivery(pizza)
     else:
