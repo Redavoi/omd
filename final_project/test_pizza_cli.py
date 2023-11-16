@@ -58,7 +58,10 @@ def test_order_pizza_with_invalid_option():
     """
     runner = CliRunner()
 
-    result = runner.invoke(cli, ['order', 'Margherita', 'Medium', '--delivery'])
+    result = runner.invoke(cli, ['order',
+                                 'Margherita',
+                                 'Medium',
+                                 '--delivery'])
 
     assert result.exit_code == 2
     assert "'Medium' is not one of" in result.output
