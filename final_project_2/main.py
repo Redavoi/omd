@@ -125,21 +125,31 @@ async def game(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
         return CONTINUE_GAME
 
 
-# Setup conversation handler with the states CONTINUE_GAME and FINISH_GAME
-conv_handler = ConversationHandler(
-    entry_points=[CommandHandler('start', start)],
-    states={
-        CONTINUE_GAME: [CallbackQueryHandler(game, pattern='^[0-2][0-2]$')],
-        FINISH_GAME: [CallbackQueryHandler(end, pattern='^[0-2][0-2]$')]
-    },
-    fallbacks=[CommandHandler('start', start)]
-)
+def main() -> None:
+    """Run the bot"""
+    application = Application.builder().token(TOKEN).build()
 
-# Create the Application and pass it your bot's token
-application = Application.builder().token(TOKEN).build()
+    conv_handler = ConversationHandler(
+        entry_points=[CommandHandler('start', start)],
+        states={
+            CONTINUE_GAME: [
+                CallbackQueryHandler(game, pattern='^' + f'{r}{c}' + '$')
+                for r in range(3)
+                for c in range(3)
+            ],
+            FINISH_GAME: [
+                CallbackQueryHandler(end, pattern='^' + f'{r}{c}' + '$')
+                for r in range(3)
+                for c in range(3)
+            ],
+        },
+        fallbacks=[CommandHandler('start', start)],
+    )
 
-# Add ConversationHandler to the application
-application.add_handler(conv_handler)
+    application.add_handler(conv_handler)
 
-# Run the bot until the user presses Ctrl-C
-application.run_polling()
+    application.run_polling(allowed_updates=Update.ALL_TYPES)
+
+
+if __name__ == '__main__':
+    main()
